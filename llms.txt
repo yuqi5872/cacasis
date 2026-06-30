@@ -1,0 +1,17 @@
+# 百家樂觀測局
+
+> 獨立百家樂教學與機率資料站，主題涵蓋規則、補牌、路單、機率、側注與常見策略迷思。
+
+## Pages
+- / : 首頁與主題入口
+- /guides/ : 教學索引
+- /about/ : 方法論、利益揭露、理性娛樂聲明
+- /baccarat-rules/ : 百家樂規則與第三張牌補牌表
+- /baccarat-roadmap/ : 大路、大眼仔、小路、曱甴路圖解
+- /baccarat-odds/ : 莊閒和機率、賠率與莊家優勢
+- /lucky-six/ : 幸運六、超級六規則與平台差異
+- /baccarat-betting-systems/ : 百家樂纜法與注碼法整理
+- /baccarat-card-counting/ : 算牌在百家樂的限制
+- /baccarat-tips/ : 百家樂技巧與資金管理心法
+- /baccarat-myths/ : 破解與必勝法迷思
+- /live-baccarat/ : 真人百家樂導覽與 CTA 頁

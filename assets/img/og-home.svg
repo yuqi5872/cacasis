@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0c3d2e"/>
+      <stop offset="100%" stop-color="#124835"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="970" cy="140" r="110" fill="rgba(212,175,55,.18)"/>
+  <circle cx="160" cy="520" r="160" fill="rgba(212,175,55,.08)"/>
+  <text x="90" y="210" fill="#f4e7bb" font-size="34" font-family="Noto Sans TC, sans-serif" font-weight="700">百家樂觀測局</text>
+  <text x="90" y="310" fill="#ffffff" font-size="70" font-family="Noto Sans TC, sans-serif" font-weight="900">百家樂規則、路單、機率</text>
+  <text x="90" y="392" fill="#ffffff" font-size="70" font-family="Noto Sans TC, sans-serif" font-weight="900">一次講清楚</text>
+  <text x="90" y="468" fill="#d9ddcf" font-size="28" font-family="Noto Sans TC, sans-serif">獨立教學與數據整理站｜MVP 靜態版</text>
+</svg>

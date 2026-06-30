@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0f3f31"/>
+  <rect x="78" y="86" width="1044" height="458" rx="30" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.16)"/>
+  <text x="130" y="220" fill="#efcf77" font-size="34" font-family="Noto Sans TC, sans-serif" font-weight="700">百家樂觀測局</text>
+  <text x="130" y="325" fill="#ffffff" font-size="72" font-family="Noto Sans TC, sans-serif" font-weight="900">百家樂教學頁</text>
+  <text x="130" y="410" fill="#dbe5de" font-size="30" font-family="Noto Sans TC, sans-serif">規則、機率、路單與誠實策略整理</text>
+</svg>
