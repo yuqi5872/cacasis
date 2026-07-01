@@ -73,7 +73,7 @@ img { display: block; max-width: 100%; height: auto; }
   display: block;
   background:
     linear-gradient(180deg, rgba(255, 247, 230, 0.88), rgba(255, 241, 214, 0.88)),
-    url("/assets/img/brand/logo-icon.png") center/cover no-repeat;
+    url("/assets/img/brand/logo-icon.webp") center/cover no-repeat;
   color: transparent;
   font-size: 0;
   border: 1px solid rgba(201, 157, 67, 0.34);
