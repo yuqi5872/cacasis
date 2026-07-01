@@ -1645,3 +1645,23 @@ body.lightbox-open {
     box-shadow: 0 16px 30px rgba(61, 17, 24, 0.22);
   }
 }
+
+/* ── 修復:廠商頁真實截圖區排版(desktop一直排+空白問題) ── */
+.visual-showcase-proof { display: block !important; }
+.visual-showcase-proof .image-slot-wide { max-width: 760px; margin: 0 auto 22px; }
+.visual-showcase-proof .visual-stack {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+.visual-showcase-proof .phone-slot.image-slot-media { max-width: 100% !important; margin-inline: 0 !important; }
+.visual-showcase-proof figcaption { font-size: 13px; color: var(--ink-mute); padding: 8px 4px 0; line-height: 1.6; }
+@media (max-width: 860px) {
+  .visual-showcase-proof .visual-stack { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .visual-showcase-proof .visual-stack { grid-template-columns: 1fr; }
+  .visual-showcase-proof .phone-slot.image-slot-media { max-width: 240px !important; margin-inline: auto !important; }
+  .visual-showcase-proof .image-slot-wide { margin-bottom: 16px; }
+}
