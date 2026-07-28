@@ -134,16 +134,56 @@
             <figcaption>第三張牌不用死背整張表，先記住順序：先看天牌，再看閒家，最後才看莊家依閒家第三張牌怎麼補。</figcaption>
           </figure>
 
-          <h2>簡化版補牌表</h2>
+          <h2>閒家補牌規則（完整版）</h2>
+          <p>閒家的規則最單純，只看自己前兩張牌的總點數：</p>
           <div class="t-scroll">
             <table>
-              <thead><tr><th>情況</th><th>閒家</th><th>莊家</th></tr></thead>
+              <thead><tr><th>閒家前兩張總點數</th><th>動作</th></tr></thead>
               <tbody>
-                <tr><td>前兩張為 8 或 9</td><td>停牌</td><td>停牌</td></tr>
-                <tr><td>閒家前兩張 0 到 5</td><td>補牌</td><td>依閒家第三張牌與莊家點數決定</td></tr>
-                <tr><td>閒家前兩張 6 或 7</td><td>停牌</td><td>若閒家未補牌，莊家 0 到 5 補牌、6 到 7 停牌</td></tr>
+                <tr><td>0、1、2、3、4、5</td><td>補第三張牌</td></tr>
+                <tr><td>6、7</td><td>停牌</td></tr>
+                <tr><td>8、9（天牌 natural）</td><td>停牌，且莊家也不再補牌，直接比點數</td></tr>
               </tbody>
             </table>
+          </div>
+          <div class="callout warn">
+            <span class="ic">!</span>
+            <div><strong>天牌優先於一切規則：</strong>只要莊家或閒家前兩張出現 8 或 9，雙方都立刻停牌比大小，不會再看下面的莊家補牌表。這是判斷順序的第一步。</div>
+          </div>
+
+          <h2>莊家補牌規則（完整對照表）：閒家第三張牌是什麼時，莊家要補？</h2>
+          <p>這是百家樂規則裡最容易搞混、也是最多人搜的部分。前提是<strong>雙方都沒有天牌</strong>，且已經知道閒家是否補了第三張牌、補到了什麼點數。莊家依自己前兩張的總點數，對照閒家的第三張牌決定：</p>
+          <div class="t-scroll">
+            <table>
+              <thead><tr><th>莊家前兩張總點數</th><th>閒家有補第三張牌時</th><th>閒家沒補牌（閒家 6 或 7 停牌）時</th></tr></thead>
+              <tbody>
+                <tr><td>0、1、2</td><td>一律補牌，不看閒家第三張牌是什麼</td><td>補牌</td></tr>
+                <tr><td>3</td><td>閒家第三張牌是 0–7 或 9 時補牌；閒家第三張牌是 <strong>8</strong> 時不補</td><td>補牌</td></tr>
+                <tr><td>4</td><td>閒家第三張牌是 <strong>2–7</strong> 時補牌；是 0、1、8、9 時不補</td><td>補牌</td></tr>
+                <tr><td>5</td><td>閒家第三張牌是 <strong>4–7</strong> 時補牌；其餘不補</td><td>補牌</td></tr>
+                <tr><td>6</td><td>閒家第三張牌是 <strong>6 或 7</strong> 時補牌；其餘不補</td><td>停牌</td></tr>
+                <tr><td>7</td><td>一律停牌，不看閒家第三張牌是什麼</td><td>停牌</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout info">
+            <span class="ic">i</span>
+            <div><strong>為什麼莊家規則比閒家複雜？</strong>因為莊家永遠是後補牌的一方，補牌前已經看得到閒家的第三張牌（如果有補的話）。這個「資訊優勢」是莊家長期勝率略高於閒家的原因之一，也是抽水設在莊家而非閒家的理由。</div>
+          </div>
+
+          <h2>實際牌例：跟著補牌邏輯走一遍</h2>
+          <p>判斷順序固定是三步：<strong>①先看有沒有天牌 → ②再看閒家怎麼補 → ③最後看莊家怎麼補</strong>。跟著下面三個例子走一遍，比死背表格更容易記住。</p>
+          <div class="callout info">
+            <span class="ic">1</span>
+            <div><strong>閒家補牌、莊家依第三張牌決定：</strong>閒家前兩張 3+2＝5 → 沒有天牌，5 屬於 0–5，閒家補牌，補到一張 7（閒家第三張牌＝7）。莊家前兩張 4+1＝5 → 對照「莊家 5」那一列：閒家第三張牌 4–7 時補牌，7 落在範圍內 → <strong>莊家補牌</strong>。</div>
+          </div>
+          <div class="callout info">
+            <span class="ic">2</span>
+            <div><strong>閒家停牌、莊家用簡化規則：</strong>閒家前兩張 3+3＝6 → 沒有天牌，6 屬於 6、7，閒家停牌（不補第三張）。莊家前兩張 2+2＝4 → 閒家沒補牌時莊家只看自己點數：0–5 補、6–7 停，4 屬於補牌範圍 → <strong>莊家補牌</strong>。</div>
+          </div>
+          <div class="callout warn">
+            <span class="ic">3</span>
+            <div><strong>出現天牌，雙方都不補：</strong>閒家前兩張 5+3＝8 → 8 是天牌（natural），規則明訂只要一方前兩張是 8 或 9，雙方立刻停牌比大小，不再進入補牌表。就算莊家前兩張只有 2 點，也<strong>不能補牌</strong>，直接比 8 點對 2 點，閒家勝。</div>
           </div>
 
           <h2>新手最常犯的 3 個誤解</h2>
