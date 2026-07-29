@@ -171,6 +171,68 @@
             <div><strong>為什麼莊家規則比閒家複雜？</strong>因為莊家永遠是後補牌的一方，補牌前已經看得到閒家的第三張牌（如果有補的話）。這個「資訊優勢」是莊家長期勝率略高於閒家的原因之一，也是抽水設在莊家而非閒家的理由。</div>
           </div>
 
+          <h2>補牌判斷流程：三步走完，不用背整張表</h2>
+          <p>整張莊家補牌表看起來很嚇人，但實際判斷永遠是同樣三步，而且<strong>順序不能顛倒</strong>。多數人搞混，是因為一開始就跳到莊家那張表，忘了要先確認前面兩步。</p>
+          <figure class="surface">
+            <svg viewBox="0 0 720 470" role="img" aria-labelledby="flowTitle flowDesc" style="width:100%;height:auto;display:block">
+              <title id="flowTitle">百家樂第三張牌判斷流程</title>
+              <desc id="flowDesc">先判斷有沒有天牌，再判斷閒家是否補牌，最後才依閒家第三張牌決定莊家是否補牌。</desc>
+              <style>
+                .fb{fill:var(--paper,#fffaf6);stroke:var(--line,#e0cdc4);stroke-width:1.5}
+                .fa{fill:var(--green-soft,#f0dde1);stroke:var(--green,#6c1625);stroke-width:1.5}
+                .fg{fill:var(--gold-soft,#f6ead0);stroke:var(--gold-deep,#8f6618);stroke-width:1.5}
+                .st{font:600 15px/1.4 system-ui,-apple-system,"PingFang TC",sans-serif;fill:var(--ink,#241916)}
+                .sm{font:13px system-ui,-apple-system,"PingFang TC",sans-serif;fill:var(--ink-soft,#5a4540)}
+                .lb{font:600 12px system-ui,-apple-system,"PingFang TC",sans-serif;fill:var(--ink-mute,#8b736c)}
+                .ln{stroke:var(--line,#e0cdc4);stroke-width:2;fill:none}
+              </style>
+              <rect class="fa" x="230" y="14" width="260" height="52" rx="8"/>
+              <text class="st" x="360" y="38" text-anchor="middle">第 1 步：有沒有天牌？</text>
+              <text class="sm" x="360" y="56" text-anchor="middle">任一方前兩張是 8 或 9</text>
+
+              <path class="ln" d="M360 66 V96"/>
+              <path class="ln" d="M120 96 H600"/>
+              <path class="ln" d="M120 96 V126"/><path class="ln" d="M600 96 V126"/>
+              <text class="lb" x="150" y="90">是</text><text class="lb" x="570" y="90">否</text>
+
+              <rect class="fg" x="20" y="126" width="200" height="60" rx="8"/>
+              <text class="st" x="120" y="150" text-anchor="middle">雙方都停牌</text>
+              <text class="sm" x="120" y="170" text-anchor="middle">直接比點數，結束</text>
+
+              <rect class="fa" x="470" y="126" width="230" height="60" rx="8"/>
+              <text class="st" x="585" y="150" text-anchor="middle">第 2 步：閒家要不要補？</text>
+              <text class="sm" x="585" y="170" text-anchor="middle">只看閒家前兩張總點數</text>
+
+              <path class="ln" d="M585 186 V212"/>
+              <path class="ln" d="M400 212 H700"/>
+              <path class="ln" d="M400 212 V244"/><path class="ln" d="M700 212 V244"/>
+              <text class="lb" x="405" y="206">0–5：補</text><text class="lb" x="640" y="206">6–7：停</text>
+
+              <rect class="fb" x="290" y="244" width="220" height="60" rx="8"/>
+              <text class="st" x="400" y="268" text-anchor="middle">閒家補到第三張牌</text>
+              <text class="sm" x="400" y="288" text-anchor="middle">記住那張牌的點數</text>
+
+              <rect class="fb" x="560" y="244" width="150" height="60" rx="8"/>
+              <text class="st" x="635" y="268" text-anchor="middle">閒家停牌</text>
+              <text class="sm" x="635" y="288" text-anchor="middle">沒有第三張牌</text>
+
+              <path class="ln" d="M400 304 V336"/><path class="ln" d="M635 304 V320 H400"/>
+
+              <rect class="fa" x="255" y="336" width="290" height="60" rx="8"/>
+              <text class="st" x="400" y="360" text-anchor="middle">第 3 步：莊家要不要補？</text>
+              <text class="sm" x="400" y="380" text-anchor="middle">看自己點數，再對照閒家第三張牌</text>
+
+              <path class="ln" d="M400 396 V420"/>
+              <rect class="fg" x="230" y="420" width="340" height="42" rx="8"/>
+              <text class="st" x="400" y="447" text-anchor="middle">補完後比點數，個位數大的一方獲勝</text>
+            </svg>
+            <figcaption>三步判斷流程：天牌優先於一切；閒家先於莊家；莊家永遠是最後一個決定的人。</figcaption>
+          </figure>
+          <div class="callout warn">
+            <span class="ic">!</span>
+            <div><strong>順序顛倒是最常見的錯誤：</strong>先去查莊家補牌表，會漏掉「天牌一出現雙方立刻停牌」這個前提，也會不知道閒家第三張牌是多少。<strong>沒有第 1、2 步的答案，第 3 步根本無法判斷。</strong></div>
+          </div>
+
           <h2>實際牌例：跟著補牌邏輯走一遍</h2>
           <p>判斷順序固定是三步：<strong>①先看有沒有天牌 → ②再看閒家怎麼補 → ③最後看莊家怎麼補</strong>。跟著下面三個例子走一遍，比死背表格更容易記住。</p>
           <div class="callout info">
@@ -186,12 +248,63 @@
             <div><strong>出現天牌，雙方都不補：</strong>閒家前兩張 5+3＝8 → 8 是天牌（natural），規則明訂只要一方前兩張是 8 或 9，雙方立刻停牌比大小，不再進入補牌表。就算莊家前兩張只有 2 點，也<strong>不能補牌</strong>，直接比 8 點對 2 點，閒家勝。</div>
           </div>
 
+          <h2>補牌規則重點整理：五條就記完</h2>
+          <p>如果你不想背表，記住下面五條就能應付牌桌上九成的情況。這五條是把上面兩張對照表壓縮成人話。</p>
+          <div class="t-scroll">
+            <table>
+              <thead><tr><th>#</th><th>一句話規則</th><th>為什麼</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td><strong>8、9 一出現，牌局立刻結束</strong></td><td>天牌優先於所有補牌規則，雙方都不再補</td></tr>
+                <tr><td>2</td><td><strong>閒家只看自己：0–5 補、6–7 停</strong></td><td>閒家先行動，不需要參考莊家</td></tr>
+                <tr><td>3</td><td><strong>莊家 0、1、2 一定補；7 一定停</strong></td><td>這兩端不看閒家第三張牌，直接決定</td></tr>
+                <tr><td>4</td><td><strong>莊家 3–6 才要對照閒家第三張牌</strong></td><td>真正需要查表的只有這四種點數</td></tr>
+                <tr><td>5</td><td><strong>閒家沒補牌時，莊家也只看自己：0–5 補、6–7 停</strong></td><td>沒有第三張牌可對照，規則自動簡化</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout info">
+            <span class="ic">i</span>
+            <div><strong>只要記住第 3、4 條，就等於記住整張莊家表。</strong>莊家點數 0、1、2、7 是固定答案，剩下 3、4、5、6 這四列才需要看閒家補到什麼——而且範圍有規律：莊 3 只排除閒 8、莊 4 是閒 2–7、莊 5 是閒 4–7、莊 6 是閒 6–7，<strong>區間一路往上收窄</strong>。</div>
+          </div>
+
           <h2>新手最常犯的 3 個誤解</h2>
           <ul>
             <li>把和局當成「賠率高所以比較划算」。高賠率不代表高期望值。</li>
             <li>誤以為補牌可以自己決定。標準百家樂的補牌是固定規則。</li>
             <li>只看連莊或連閒，不先理解點數與補牌邏輯。這會讓後面看路單時更容易誤解。</li>
           </ul>
+
+          <h2>實戰注意事項：補牌規則沒變，但賠付方式可能不同</h2>
+          <p>上面那套補牌規則是<strong>標準百家樂的固定流程，各家桌台基本一致</strong>。真正會因桌而異的不是補牌，而是<strong>贏了怎麼賠</strong>——這一點最多人上桌後才發現。</p>
+
+          <h3>免佣百家樂（也常標示為 Super 6、幸運六桌）</h3>
+          <p>傳統百家樂押莊贏了要抽 5% 水，所以賠率寫 1:0.95。免佣桌把抽水拿掉、賠 1:1，但補上一條交換條件：<strong>莊家以 6 點獲勝時，押莊只賠一半</strong>。</p>
+          <div class="t-scroll">
+            <table>
+              <thead><tr><th></th><th>傳統（抽水）</th><th>免佣 / Super 6</th></tr></thead>
+              <tbody>
+                <tr><td>押莊獲勝</td><td>賠 1:0.95（抽 5% 水）</td><td>賠 1:1，不抽水</td></tr>
+                <tr><td><strong>莊家以 6 點獲勝</strong></td><td>同上，賠 1:0.95</td><td><strong>只賠一半（1:0.5）</strong></td></tr>
+                <tr><td>押閒獲勝</td><td colspan="2">兩者相同，賠 1:1</td></tr>
+                <tr><td>補牌規則</td><td colspan="2"><strong>完全相同</strong>，不因桌型改變</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout warn">
+            <span class="ic">!</span>
+            <div><strong>「免佣」不等於對玩家比較有利。</strong>業界普遍引用的估算是：標準規則下押莊的莊家優勢約 1.06%，免佣桌因為那條 6 點半賠會升到約 1.46%（因為莊家以 6 點獲勝並不罕見）。<strong>看到「不抽水」先找它的交換條件在哪，不要只看賠率數字。</strong>實際條款以各平台官方公告為準。</div>
+          </div>
+
+          <h3>上桌前值得先確認的三件事</h3>
+          <ul>
+            <li><strong>這一桌是傳統還是免佣？</strong>桌邊或介面通常會標示 Super 6 / 免佣 / 幸運六，賠付表也會寫。</li>
+            <li><strong>側注（幸運六、對子）另有賠率與規則</strong>，跟主注的補牌流程無關，屬於獨立下注，建議先熟悉主注再研究。</li>
+            <li><strong>補牌是系統自動執行的</strong>，玩家與荷官都不能選擇。任何聲稱能「預測補牌」「看出下一張牌」的說法都沒有可驗證的依據。</li>
+          </ul>
+          <div class="callout info">
+            <span class="ic">i</span>
+            <div><strong>把規則看懂真正的用處，是知道自己在跟什麼打交道。</strong>補牌規則固定、賠率固定，代表結果由機率決定——<strong>沒有任何打法能改變這件事，也沒有人能保證獲利</strong>。設好預算、輸到預算就停，是唯一你能控制的變數。18 歲以上才能參與，請理性娛樂。</div>
+          </div>
         </article>
 
         <div class="author-box">
