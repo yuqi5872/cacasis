@@ -108,6 +108,11 @@
             utm_content: contentValue + "_outbound"
           });
           link.href = externalUrl.toString();
+          link.addEventListener("click", function () {
+            try {
+              window.gtag && window.gtag("event", "outbound_click", { cta: contentValue });
+            } catch (error) {}
+          });
         }
       } catch (error) {
         return;
