@@ -7,6 +7,7 @@
 - /guides/ : 教學索引
 - /about/ : 方法論、利益揭露、理性娛樂聲明
 - /baccarat-rules/ : 百家樂規則與第三張牌補牌表
+- /baccarat-glossary/ : 百家樂術語大全，30個常見名詞查詢表
 - /baccarat-roadmap/ : 大路、大眼仔、小路、曱甴路圖解
 - /baccarat-odds/ : 莊閒和機率、賠率與莊家優勢
 - /lucky-six/ : 幸運六、超級六規則與平台差異
