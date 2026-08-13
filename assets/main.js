@@ -130,13 +130,13 @@
     wrapper.innerHTML =
       '<aside class="float-ad float-ad-desktop" aria-label="YS夜色註冊優惠">' +
       '  <button class="float-ad-close" type="button" aria-label="關閉優惠">×</button>' +
-      '  <a class="float-ad-link" data-cta="desktop_floating_368" href="' + promoUrlDesktop + '" target="_blank" rel="noopener sponsored">' +
+      '  <a class="float-ad-link" data-cta="desktop_floating_deposit" href="' + promoUrlDesktop + '" target="_blank" rel="noopener sponsored">' +
       '    <img src="' + (config.promoDesktopImage || "") + '" alt="' + (config.promoAlt || "") + '">' +
       "  </a>" +
       "</aside>" +
       '<aside class="float-ad float-ad-mobile" aria-label="YS夜色註冊優惠">' +
       '  <button class="float-ad-close" type="button" aria-label="關閉優惠">×</button>' +
-      '  <a class="float-ad-link" data-cta="mobile_floating_368" href="' + promoUrlMobile + '" target="_blank" rel="noopener sponsored">' +
+      '  <a class="float-ad-link" data-cta="mobile_floating_deposit" href="' + promoUrlMobile + '" target="_blank" rel="noopener sponsored">' +
       '    <img src="' + (config.promoMobileImage || "") + '" alt="' + (config.promoAlt || "") + '">' +
       "  </a>" +
       "</aside>";
