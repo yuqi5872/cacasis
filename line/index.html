@@ -81,12 +81,28 @@
         yuya:     'https://line.me/R/oaMessage/%40232jtahp/?%E6%88%91%E8%A6%81%E5%B7%A5%E5%85%B7%20P14',   // P-14 妤雅
         ni:       'https://line.me/R/oaMessage/%40232jtahp/?%E6%88%91%E8%A6%81%E5%B7%A5%E5%85%B7%20P19',   // P-19 倪
         baccobs:  'https://line.me/R/oaMessage/%40232jtahp/?%E6%88%91%E8%A6%81%E5%B7%A5%E5%85%B7%20P31',   // P-31 百家樂觀測局
-        baccwiki: 'https://line.me/R/oaMessage/%40232jtahp/?%E6%88%91%E8%A6%81%E5%B7%A5%E5%85%B7%20P38'    // P-38 百家知識庫
+        baccwiki: 'https://line.me/R/oaMessage/%40232jtahp/?%E6%88%91%E8%A6%81%E5%B7%A5%E5%85%B7%20P38',   // P-38 百家知識庫
+        // 2026-09-03 新增兩支，改用真正的「加入好友管道」（各自 oat__id，LINE 後台分得出來源），
+        // 不是上面那種蓋章連結。code 沿用歷史 utm 碼，GA4 數據才接得起來。
+        mien:     'https://lin.ee/wHX2WPk',   // P-26 米恩   oat__id 7117882
+        huiqi566: 'https://lin.ee/55W9CzU'    // P-33 慧琪   oat__id 7117887（分類仍為未分類，但管道掛在百家站 OA）
       }
     },
-    // 彩票站的官方帳號還沒建，先留設定位置。
-    // ga 已確認：lott168.com → 543984577。
-    'lott168.com':  { name: '彩票站', ga: '', oa: '', channels: {} }
+    'lott168.com': {
+      name: '彩票站',
+      ga: 'G-V71LVMWWKF',           // GA4 資源 543984577
+      oa: '@275yphzj',
+      // 2026-08-27 使用者建好了四支各自的「加入好友管道」，改用加好友（不是蓋章連結）。
+      // 四條都指向同一個官方帳號 @275yphzj，但各自帶不同 oat__id，
+      // 所以 LINE 後台也分得出是誰帶的——跟體育預測站同一種做法。
+      // code 一律用線上系統 personas/community 的 code 欄位，UTM 產生器才對得上。
+      channels: {
+        zhaohan: 'https://lin.ee/vydDgYnO',   // P-15 昭涵      oat__id 7084326
+        jiang:   'https://lin.ee/5Y59koP',    // P-16 獎獎獎江  oat__id 7084328
+        yuki:    'https://lin.ee/68ptQsp',    // P-17 Yuki      oat__id 7084330
+        lottnum: 'https://lin.ee/5ZCSmNH'     // P-32 獎號通    oat__id 7084331
+      }
+    }
   };
 
   var host = location.hostname.toLowerCase();
@@ -115,27 +131,13 @@
 
   var target = CHANNELS[ch] || OA_URL;
 
-  /* 🔴 2026-08-28 加：代號不在 channels 白名單時，medium 改標 _noroute。
-     為什麼要有這一段——2026-08-27 獎號通出現一個沒登記的代號 haotong（手打的，
-     連 &at= 都沒有），它照樣轉得過去、GA4 照樣記到點擊，但因為沒有專屬 lin.ee，
-     跳的是通用官方帳號連結、不帶 oat__id，**LINE 後台那半邊的歸因整個斷掉**，
-     而且斷得完全無聲——沒有錯誤、沒有告警，是查別的事才偶然發現的。
-     旗標 has_line_route 早就埋在下面的 gtag 事件裡，但它是自訂維度、沒註冊，
-     所以永遠看不到。與其去 GA4 設自訂維度（四個資源各設一次、還不能追溯），
-     不如借用「來源/媒介」這個每天都在看的內建報表：斷掉的會自己跳出來。
-        line_addfriend           正常，有 oat__id，LINE 後台分得出來
-        line_addfriend_noroute   斷了，只有 GA4 這半邊追得到
-     要修的話是把該代號加進上面的 channels，或把連結改成正確代號。 */
-  var hasRoute = !!CHANNELS[ch];
-  var MEDIUM   = hasRoute ? 'line_addfriend' : 'line_addfriend_noroute';
-
   // utm_content 的取法：有 pid 就用 pid，讓這次點擊跟該則貼文的其他成效對得起來；
   // 沒有就用 <ch>_<at>，代表這是 bio 或通用位置的長期連結。
   var content = pid || (ch + '_' + at);
 
   var url = new URL(location.href);
   url.searchParams.set('utm_source',   ch);
-  url.searchParams.set('utm_medium',   MEDIUM);
+  url.searchParams.set('utm_medium',   'line_addfriend');
   url.searchParams.set('utm_campaign', 'oa_join');
   url.searchParams.set('utm_content',  content);
 
@@ -211,9 +213,5 @@
     <p>正在帶你前往 LINE…</p>
     <p><a id="fallback" href="#">沒有自動跳轉？點這裡</a></p>
   </div>
-<div class="sticky-cta" role="complementary" aria-label="首儲活動">
-  <div class="sticky-cta__t">真人百家樂・首儲活動<b>看活動頁的實際條件</b></div>
-  <a class="sticky-cta__b" href="https://ys89.bet/activity/entry?url=/activity/detail/firstDeposit/NTD&amp;proxy=rs82gq&amp;utm_source=dgcasnio&amp;utm_medium=sticky&amp;utm_content=sticky_cta" target="_blank" rel="noopener sponsored" data-cta="sticky_register">立即體驗</a>
-</div>
 </body>
 </html>
