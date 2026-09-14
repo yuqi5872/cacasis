@@ -1685,3 +1685,21 @@ body.lightbox-open {
   .proof-v2 .shot-mobile { grid-template-columns: 1fr; }
   .proof-v2 .shot-mobile .phone-slot.image-slot-media { max-width: 240px !important; margin-inline: auto !important; }
 }
+
+/* 手機浮動 CTA（2026-09-14 新增）。配色沿用本站 --green / --gold，不套其他站樣式。 */
+.sticky-cta{display:none}
+@media (max-width:760px){
+  .sticky-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;gap:12px;align-items:center;
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+    background:linear-gradient(180deg,rgba(108,22,37,.97),rgba(84,16,28,.99));
+    border-top:1px solid rgba(201,157,67,.45);box-shadow:0 -6px 22px rgba(61,27,27,.28)}
+  .sticky-cta__t{flex:1;min-width:0;font-size:12px;line-height:1.35;color:rgba(255,250,246,.72)}
+  .sticky-cta__t b{display:block;font-size:14.5px;color:var(--gold,#c99d43);font-weight:800;margin-top:1px}
+  .sticky-cta__b{flex:none;display:inline-flex;align-items:center;justify-content:center;
+    padding:11px 18px;border-radius:12px;font-weight:800;font-size:14.5px;text-decoration:none;
+    background:linear-gradient(135deg,var(--gold,#c99d43),#e8c35f);color:var(--green,#6c1625);
+    box-shadow:0 3px 0 rgba(143,102,24,.85);transition:transform .14s ease}
+  .sticky-cta__b:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(143,102,24,.85)}
+  body{padding-bottom:74px}
+}
+@media (prefers-reduced-motion:reduce){.sticky-cta__b{transition:none}}
