@@ -85,8 +85,7 @@
         // 2026-09-03 新增兩支，改用真正的「加入好友管道」（各自 oat__id，LINE 後台分得出來源），
         // 不是上面那種蓋章連結。code 沿用歷史 utm 碼，GA4 數據才接得起來。
         mien:     'https://lin.ee/wHX2WPk',   // P-26 米恩   oat__id 7117882
-        huiqi566: 'https://lin.ee/55W9CzU',   // P-33 慧琪   oat__id 7117887
-        jingrou794: 'https://lin.ee/9s0aMfN'    // P-40 百家通（原靜柔改名）L3 轉化
+        huiqi566: 'https://lin.ee/55W9CzU'    // P-33 慧琪   oat__id 7117887（分類仍為未分類，但管道掛在百家站 OA）
       }
     },
     'lott168.com': {
