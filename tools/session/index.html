@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>百家樂本場結算器｜真正淨利、回撤與押注分布試算 - 百家樂觀測局</title>
+<meta name="description" content="輸入開場本金與目前籌碼，算出本場真正淨利、最大回撤、停損用了幾成，以及你的莊閒和押注分布長期預期會吃掉多少。不預測下一手，只算清楚每個選擇的成本。">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://dgcasnio.com/tools/session/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=20260914-sticky">
+<style>
+/* ── 本頁專用：結算器元件。顏色一律沿用站上 style.css 的變數，不另外定色 ── */
+.tool-panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px;box-shadow:var(--shadow-sm);margin:18px 0}
+.tool-panel>h3{margin:0 0 4px;font-size:1.05rem;color:var(--ink)}
+.tool-panel>.panel-sub{margin:0 0 16px;font-size:.88rem;color:var(--ink-mute)}
+
+.field-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.field label{display:block;font-size:.8rem;font-weight:700;color:var(--ink-soft);margin-bottom:6px}
+.field input{width:100%;padding:11px 13px;font-size:1rem;font-weight:700;color:var(--ink);
+  background:var(--paper-soft);border:1px solid var(--line);border-radius:var(--radius-sm);
+  font-variant-numeric:tabular-nums;appearance:textfield}
+.field input::-webkit-outer-spin-button,
+.field input::-webkit-inner-spin-button{appearance:none;margin:0}
+.field input:focus-visible,.bet:focus-visible,.btn:focus-visible{outline:2px solid var(--gold-deep);outline-offset:2px}
+.field-hint{font-size:.78rem;color:var(--ink-mute);margin:8px 0 0;line-height:1.55}
+
+.bet-row{display:grid;gap:10px;grid-template-columns:repeat(3,1fr);margin-top:8px}
+.bet{border:1px solid var(--line);background:var(--paper-soft);border-radius:var(--radius-sm);
+  padding:13px 8px;text-align:center;cursor:pointer;font-weight:800;color:var(--ink);
+  font-family:inherit;font-size:.95rem;transition:transform .15s ease,border-color .15s ease}
+.bet:hover{transform:translateY(-1px);border-color:var(--gold)}
+.bet .bn{display:block;font-size:1.5rem;line-height:1.1;color:var(--green-2);margin-top:6px;
+  font-variant-numeric:tabular-nums}
+.bet .be{display:block;font-size:.72rem;font-weight:500;color:var(--ink-mute);margin-top:4px}
+
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn.ghost{background:transparent;color:var(--ink-soft);border-color:var(--line)}
+.btn.small{padding:9px 14px;font-size:.85rem}
+
+.readout{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));margin:18px 0}
+.ro{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);padding:15px 16px}
+.ro .rk{font-size:.78rem;color:var(--ink-mute);margin-bottom:6px}
+.ro .rv{font-size:1.35rem;font-weight:900;line-height:1.15;color:var(--ink);
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.ro .rm{font-size:.75rem;color:var(--ink-mute);margin-top:5px;line-height:1.5}
+.rv.up{color:var(--gold-deep)} .rv.down{color:var(--red)} .rv.hot{color:var(--green-2)}
+
+.meter{height:6px;border-radius:999px;background:var(--line-soft);overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:var(--gold);border-radius:999px;transition:width .25s ease}
+.meter i.danger{background:var(--red)}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-sm);
+  background:var(--paper);margin-top:6px}
+.tool-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.tool-table th,.tool-table td{padding:11px 14px;text-align:right;white-space:nowrap;
+  border-bottom:1px solid var(--line-soft);font-variant-numeric:tabular-nums}
+.tool-table th:first-child,.tool-table td:first-child{text-align:left}
+.tool-table thead th{font-size:.76rem;color:var(--ink-mute);background:var(--paper-soft);font-weight:800}
+.tool-table tbody tr:last-child td{border-bottom:0}
+.tool-table tfoot td{font-weight:800;background:var(--paper-soft);border-top:1px solid var(--line)}
+
+.timeline{margin-top:16px;max-height:190px;overflow-y:auto;border:1px solid var(--line);
+  border-radius:var(--radius-sm);background:var(--paper)}
+.timeline div{display:flex;justify-content:space-between;gap:12px;padding:9px 14px;
+  border-bottom:1px solid var(--line-soft);font-size:.85rem;font-variant-numeric:tabular-nums}
+.timeline div:last-child{border-bottom:0}
+.timeline .ts{color:var(--ink-mute);font-size:.78rem}
+.timeline .empty-row{justify-content:center;color:var(--ink-mute);padding:22px 14px;font-size:.85rem}
+
+@media (max-width:520px){
+  .tool-panel{padding:17px}
+  .ro .rv{font-size:1.2rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header"><div class="wrap nav">
+  <a href="/" class="brand"><span class="brand-mark">百</span><span class="brand-text"><strong>百家樂觀測局</strong><span>獨立教學與機率資料站</span></span></a>
+  <button class="nav-toggle" aria-label="選單"><span></span><span></span><span></span></button>
+  <nav class="nav-links" id="nav">
+    <a href="/">首頁</a><a href="/baccarat-rules/">規則</a><a href="/baccarat-roadmap/">路單</a><a href="/baccarat-odds/">機率</a><a href="/guides/">攻略總覽</a><a href="/about/">關於我們</a>
+  </nav>
+</div></header>
+
+<main>
+<div class="wrap">
+  <nav class="crumb"><a href="/">首頁</a> ／ <span>本場結算器</span></nav>
+
+  <div class="tagrow"><span class="tag light">試算工具</span><span class="tag light">資金管理</span><span class="tag light">不預測</span></div>
+  <h1 class="sec-title">百家樂本場結算器：你現在是真的賺，還是只是把輸掉的拿回來</h1>
+  <div class="tldr"><strong>一句話直答：</strong>這個工具不會告訴你下一手開莊還是開閒；它把你已經花掉的成本算清楚——本場真正淨利、最大回撤、停損用掉幾成，以及你的莊閒和分布長期預期會吃掉多少。</div>
+
+  <article class="prose">
+
+  <h2>Step 1　建立本場基準</h2>
+  <div class="tool-panel">
+    <div class="field-grid">
+      <div class="field"><label for="i-start">開場本金</label>
+        <input type="number" id="i-start" inputmode="numeric" value="10000"></div>
+      <div class="field"><label for="i-bet">每手注額</label>
+        <input type="number" id="i-bet" inputmode="numeric" value="500"></div>
+      <div class="field"><label for="i-stop">本場停損（剩多少就走）</label>
+        <input type="number" id="i-stop" inputmode="numeric" value="6000"></div>
+      <div class="field"><label for="i-goal">想淨賺多少</label>
+        <input type="number" id="i-goal" inputmode="numeric" value="3000"></div>
+    </div>
+    <p class="field-hint">資料只存在這台裝置的瀏覽器，不會上傳、不會經過我們的伺服器。</p>
+  </div>
+
+  <h2>Step 2　更新籌碼，記下這幾手押在哪</h2>
+  <div class="tool-panel">
+    <div class="field-grid" style="grid-template-columns:1fr auto;align-items:end">
+      <div class="field"><label for="i-now">目前籌碼</label>
+        <input type="number" id="i-now" inputmode="numeric" value="10000"></div>
+      <button class="btn btn-primary" id="btn-update" type="button">更新</button>
+    </div>
+    <p class="field-hint">瞄一眼檯面上現在的點數填進去就好，差額工具自己算，不用心算。</p>
+
+    <div style="margin-top:20px">
+      <p style="font-size:.8rem;font-weight:700;color:var(--ink-soft);margin:0 0 4px">這幾手押在哪（按一下加一手）</p>
+      <div class="bet-row">
+        <button class="bet" type="button" data-bet="banker">莊<span class="bn" id="c-banker">0</span><span class="be">莊家優勢 1.06%</span></button>
+        <button class="bet" type="button" data-bet="player">閒<span class="bn" id="c-player">0</span><span class="be">莊家優勢 1.24%</span></button>
+        <button class="bet" type="button" data-bet="tie">和<span class="bn" id="c-tie">0</span><span class="be">莊家優勢 14.36%</span></button>
+      </div>
+      <p class="field-hint">這裡只計手數，不影響籌碼與淨利。輸贏請看上面「目前籌碼」。</p>
+    </div>
+
+    <div class="timeline" id="log"></div>
+
+    <div class="btn-row">
+      <button class="btn ghost small" id="btn-undo" type="button">↶ 退回上一手</button>
+      <button class="btn ghost small" id="btn-reset" type="button">結束本場・清空</button>
+    </div>
+  </div>
+
+  <h2>Step 3　本場結算</h2>
+  <div class="readout">
+    <div class="ro"><div class="rk">本場真正淨利</div><div class="rv" id="o-net">$0</div><div class="rm" id="o-net-m">目前剛好打平</div></div>
+    <div class="ro"><div class="rk">距離目標還差</div><div class="rv" id="o-gap">$3,000</div><div class="rm" id="o-gap-m">目標餘額 $13,000</div></div>
+    <div class="ro"><div class="rk">最大回撤</div><div class="rv" id="o-dd">$0</div><div class="rm" id="o-dd-m">從最高點掉下來最多的一次</div></div>
+    <div class="ro"><div class="rk">停損額度已用</div><div class="rv" id="o-stop">0%</div><div class="rm"><span id="o-stop-m">還沒動用</span><span class="meter"><i id="o-stop-bar" style="width:0%"></i></span></div></div>
+    <div class="ro"><div class="rk">已下手數</div><div class="rv" id="o-hands">0</div><div class="rm" id="o-hands-m">莊 0・閒 0・和 0</div></div>
+    <div class="ro"><div class="rk">平均每手輸贏</div><div class="rv" id="o-avg">$0</div><div class="rm">淨利 ÷ 手數</div></div>
+  </div>
+
+  <h2>Step 4　你的押注分布，長期預期會吃掉多少</h2>
+  <div class="tablewrap">
+    <table class="tool-table">
+      <thead><tr><th>押在哪</th><th>手數</th><th>佔比</th><th>莊家優勢</th><th>累計投注</th><th>長期預期損耗</th></tr></thead>
+      <tbody id="tb"></tbody>
+      <tfoot><tr><td>合計</td><td id="t-hands">0</td><td>—</td><td id="t-edge">—</td><td id="t-vol">$0</td><td id="t-exp">$0</td></tr></tfoot>
+    </table>
+  </div>
+  <div class="callout" id="dist-note" style="border-color:var(--line);background:var(--gold-soft)"><div>
+    <strong>還沒有資料。</strong>按上面的莊／閒／和記幾手，這裡就會算出你的分布預期成本。
+  </div></div>
+
+  <p style="font-size:.85rem;color:var(--ink-mute)">機率與莊家優勢採標準 8 副牌、莊家 5% 抽水：莊勝約 45.86%、閒勝約 44.62%、和局約 9.52%。完整推導見<a href="/baccarat-odds/">機率與賠率頁</a>。不同桌型（免水百家、幸運六變體桌）規則不同，數字會變，見<a href="/lucky-six/">幸運六、超級六說明</a>。</p>
+
+  <h2>這個工具不做什麼</h2>
+  <p>它<strong>不會</strong>告訴你下一手該押莊還是押閒。路單能整理過去，不保證預測未來——這件事我們在<a href="/baccarat-roadmap/">路單頁</a>寫得很清楚：路單最大的風險不是看不懂，而是看太懂。</p>
+  <p>它<strong>不會</strong>讓負期望變成正期望。注碼法改變的是你的資金消耗曲線與心理壓力，不是數學結構，<a href="/baccarat-betting-systems/">注碼法與纜法頁</a>有完整說明。</p>
+  <p>它只做一件事：<strong>把你已經花掉的成本算清楚</strong>。多數人以為自己打平，算出來才發現是小輸。</p>
+
+  <h2>常見問題</h2>
+  <h3>「長期預期損耗」是我今天會輸的錢嗎？</h3>
+  <p>不是。那是依標準規則算出來的統計期望值，描述的是這個押法本身的成本結構。你今天可能贏更多，也可能輸更多。它的用處是讓你知道：在完全不看運氣的情況下，這樣押要花多少錢。</p>
+  <h3>為什麼和局的數字特別大？</h3>
+  <p>和局賠 8:1 看起來最好，但實際發生機率只有約 9.52%，換算下來莊家優勢超過 14%，是莊家下注的十三倍以上。詳見<a href="/baccarat-odds/">機率頁</a>。</p>
+  <h3>資料會上傳嗎？</h3>
+  <p>不會。全部計算在你的瀏覽器裡完成，紀錄只存在這台裝置，關掉分頁前都在，我們看不到。</p>
+
+  <p style="font-size:.8rem;color:var(--ink-mute);margin-top:26px">純資訊聲明：本頁為試算工具，僅供理解自身成本使用，不構成任何投注建議，本站不接受任何形式投注。請理性娛樂、量力而為。</p>
+
+  </article>
+</div>
+</main>
+
+<footer class="site-footer"><div class="wrap"><div class="foot-grid">
+  <div><a href="/" class="brand"><span class="brand-mark">百</span><span class="brand-text"><strong>百家樂觀測局</strong><span>獨立教學與機率資料站</span></span></a></div>
+  <div><h4>教學</h4><a href="/baccarat-roadmap/">路單</a><a href="/baccarat-rules/">規則</a><a href="/baccarat-odds/">機率</a></div>
+  <div><h4>索引</h4><a href="/guides/">攻略總覽</a><a href="/baccarat-betting-systems/">注碼法</a><a href="/baccarat-myths/">破解迷思</a></div>
+</div></div></footer>
+
+<script>
+(function(){
+  'use strict';
+  // 標準 8 副牌、莊家 5% 抽水下的莊家優勢。依據見 /baccarat-odds/
+  var EDGE = {banker:0.0106, player:0.0124, tie:0.1436};
+  var LABEL = {banker:'莊', player:'閒', tie:'和'};
+  var KEY = 'dgc_session_v1';
+  var S = {bets:[], peak:null, hist:[]};
+
+  function $(id){ return document.getElementById(id); }
+  function num(id){ var v = parseFloat($(id).value); return isFinite(v) ? v : 0; }
+  function money(n){
+    return (n < 0 ? '-$' : '$') + Math.round(Math.abs(n)).toLocaleString('en-US');
+  }
+
+  function load(){
+    try {
+      var d = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (!d || typeof d !== 'object') return;
+      S.bets = Array.isArray(d.bets) ? d.bets : [];
+      S.peak = typeof d.peak === 'number' ? d.peak : null;
+      S.hist = Array.isArray(d.hist) ? d.hist : [];
+      ['i-start','i-bet','i-stop','i-goal','i-now'].forEach(function(k){
+        if (d[k] != null) $(k).value = d[k];
+      });
+    } catch (e) { /* 無痕視窗或封鎖 site data 時照常運作 */ }
+  }
+  function save(){
+    try {
+      var d = {bets:S.bets, peak:S.peak, hist:S.hist};
+      ['i-start','i-bet','i-stop','i-goal','i-now'].forEach(function(k){ d[k] = $(k).value; });
+      localStorage.setItem(KEY, JSON.stringify(d));
+    } catch (e) { /* 存不了不影響計算 */ }
+  }
+
+  function render(){
+    var start = num('i-start'), bet = num('i-bet'),
+        stop = num('i-stop'), goal = num('i-goal'), now = num('i-now');
+
+    if (S.peak === null || now > S.peak) S.peak = now;
+    var dd = Math.max(0, S.peak - now), net = now - start;
+
+    $('o-net').textContent = money(net);
+    $('o-net').className = 'rv ' + (net > 0 ? 'up' : net < 0 ? 'down' : '');
+    $('o-net-m').textContent = net > 0 ? '從開場 ' + money(start) + ' 起算'
+                             : net < 0 ? '距離開場還差 ' + money(-net) : '目前剛好打平';
+
+    var gap = goal - net;
+    $('o-gap').textContent = gap <= 0 ? '已達標' : money(gap);
+    $('o-gap').className = 'rv ' + (gap <= 0 ? 'up' : '');
+    $('o-gap-m').textContent = '目標餘額 ' + money(start + goal);
+
+    $('o-dd').textContent = money(dd);
+    $('o-dd').className = 'rv ' + (dd > 0 ? 'hot' : '');
+    $('o-dd-m').textContent = dd > 0 ? '本場最高曾到 ' + money(S.peak) : '還沒回落過';
+
+    var room = start - stop;
+    var used = room > 0 ? Math.min(100, Math.max(0, (start - now) / room * 100)) : 0;
+    $('o-stop').textContent = Math.round(used) + '%';
+    $('o-stop').className = 'rv ' + (used >= 80 ? 'down' : used >= 50 ? 'hot' : '');
+    $('o-stop-m').textContent = room <= 0 ? '停損設定有誤（要低於開場本金）'
+        : used <= 0 ? '還沒動用'
+        : used >= 100 ? '已觸及停損，建議離場'
+        : '還剩 ' + money(now - stop);
+    var bar = $('o-stop-bar');
+    bar.style.width = used + '%';
+    bar.className = used >= 80 ? 'danger' : '';
+
+    var cnt = {banker:0, player:0, tie:0};
+    S.bets.forEach(function(b){ if (cnt[b] != null) cnt[b]++; });
+    var hands = S.bets.length;
+    ['banker','player','tie'].forEach(function(k){ $('c-' + k).textContent = cnt[k]; });
+
+    $('o-hands').textContent = hands;
+    $('o-hands-m').textContent = '莊 ' + cnt.banker + '・閒 ' + cnt.player + '・和 ' + cnt.tie;
+    var avg = hands ? net / hands : 0;
+    $('o-avg').textContent = money(avg);
+    $('o-avg').className = 'rv ' + (avg > 0 ? 'up' : avg < 0 ? 'down' : '');
+
+    var rows = '', totVol = 0, totExp = 0;
+    ['banker','player','tie'].forEach(function(k){
+      var n = cnt[k], vol = n * bet, exp = vol * EDGE[k];
+      totVol += vol; totExp += exp;
+      rows += '<tr><td>' + LABEL[k] + '</td><td>' + n + '</td><td>'
+            + (hands ? Math.round(n / hands * 100) + '%' : '—') + '</td><td>'
+            + (EDGE[k] * 100).toFixed(2) + '%</td><td>' + money(vol) + '</td><td>'
+            + (exp ? '-' + money(exp) : '$0') + '</td></tr>';
+    });
+    $('tb').innerHTML = rows;
+    $('t-hands').textContent = hands;
+    $('t-vol').textContent = money(totVol);
+    $('t-exp').textContent = totExp ? '-' + money(totExp) : '$0';
+    $('t-edge').textContent = totVol ? (totExp / totVol * 100).toFixed(2) + '%' : '—';
+
+    var note = $('dist-note').firstElementChild;
+    if (!hands) {
+      note.innerHTML = '<strong>還沒有資料。</strong>按上面的莊／閒／和記幾手，這裡就會算出你的分布預期成本。';
+    } else {
+      var t = '<strong>這 ' + hands + ' 手、合計投注 ' + money(totVol)
+            + '，長期預期會吃掉 ' + money(totExp)
+            + '（每手平均 ' + money(totExp / hands) + '）。</strong>';
+      if (cnt.tie) {
+        var tieExp = cnt.tie * bet * EDGE.tie;
+        t += ' 其中光是和局那 ' + cnt.tie + ' 手（佔 ' + Math.round(cnt.tie / hands * 100)
+           + '%）就佔了 ' + money(tieExp) + '，是全部預期損耗的 '
+           + Math.round(tieExp / totExp * 100) + '%。和局賠 8:1 看起來最好，莊家優勢卻是莊的 13 倍以上。';
+      } else {
+        t += ' 你完全沒有押和局，這是分布上最省的做法。';
+      }
+      t += '<br><br>這是統計期望值，不是你今天的實際輸贏。它的用處是讓你知道：'
+         + '<strong>在完全不看運氣的情況下，這個押法本身要花多少錢。</strong>';
+      note.innerHTML = t;
+    }
+
+    var log = $('log');
+    if (!S.hist.length) {
+      log.innerHTML = '<div class="empty-row">還沒有更新紀錄</div>';
+    } else {
+      log.innerHTML = S.hist.slice().reverse().map(function(h){
+        var d = h.v - start;
+        var col = d > 0 ? 'var(--gold-deep)' : d < 0 ? 'var(--red)' : 'var(--ink-mute)';
+        return '<div><span class="ts">' + h.t + '</span><span>' + money(h.v)
+             + '　<span style="color:' + col + '">' + (d >= 0 ? '+' : '') + money(d) + '</span></span></div>';
+      }).join('');
+    }
+    save();
+  }
+
+  document.querySelectorAll('.bet').forEach(function(el){
+    el.addEventListener('click', function(){ S.bets.push(el.dataset.bet); render(); });
+  });
+  $('btn-undo').addEventListener('click', function(){ S.bets.pop(); render(); });
+  $('btn-update').addEventListener('click', function(){
+    var t = new Date();
+    S.hist.push({t:('0' + t.getHours()).slice(-2) + ':' + ('0' + t.getMinutes()).slice(-2),
+                 v:num('i-now')});
+    render();
+  });
+  $('btn-reset').addEventListener('click', function(){
+    if (!confirm('結束本場並清空所有紀錄？')) return;
+    S = {bets:[], peak:null, hist:[]};
+    $('i-now').value = $('i-start').value;
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    render();
+  });
+  ['i-start','i-bet','i-stop','i-goal','i-now'].forEach(function(k){
+    $(k).addEventListener('input', render);
+  });
+
+  // 站上 style.css 的漢堡選單是各頁自己綁的，這裡補上同樣行為
+  var tg = document.querySelector('.nav-toggle');
+  if (tg) tg.addEventListener('click', function(){
+    document.getElementById('nav').classList.toggle('open');
+  });
+
+  load();
+  render();
+})();
+</script>
+</body>
+</html>
