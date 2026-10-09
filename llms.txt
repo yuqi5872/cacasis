@@ -46,3 +46,4 @@
 - /live-baccarat-beginner/ : 真人百家樂新手入門完整指南，第一次玩該懂的 4 件事
 - /live-baccarat-ptt/ : 真人百家樂 PTT 評價，大家在討論什麼、怎麼分辨業配
 - /mobile-live-baccarat/ : 手機玩真人百家樂，怎麼看介面順不順手
+- /tools/session/ : 百家樂本場結算器，算真正淨利、最大回撤、停損用了幾成與莊閒和押注分布長期預期成本
