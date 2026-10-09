@@ -15,20 +15,17 @@
 - /baccarat-card-counting/ : 算牌在百家樂的限制
 - /baccarat-tips/ : 百家樂技巧與資金管理心法
 - /baccarat-myths/ : 破解與必勝法迷思
-- /live-baccarat/ : 真人百家樂導覽與 CTA 頁
+- /live-baccarat/ : 真人百家樂是什麼、9 家真人館比較表、挑選 4 指標
 - /is-online-baccarat-rigged/ : 線上百家樂會作弊嗎？是真的還是詐騙
 - /baccarat-withdrawal-safety/ : 真人百家樂平台出金安全，多久到帳、怎麼判斷安不安全
 - /baccarat-common-mistakes/ : 百家樂新手常見錯誤，6 個行為地雷
-- /live-baccarat-recommendation/ : 真人百家樂推薦怎麼看，新手挑平台先比桌型、路單與手機體驗
-- /baccarat-brand-comparison/ : 真人百家樂品牌比較，9 家真人館先比桌型、路單與手機操作
+- /baccarat-brand-comparison/ : 百家樂品牌比較，9 家真人館逐館看特色、適合誰與缺點
 - /how-to-choose-baccarat/ : 真人百家樂平台怎麼選，6 個維度＋各品牌適合誰
 - /dg-baccarat/ : DG 真人百家怎麼看，經典桌型、大廳完整度與主流比較重點
 - /sa-baccarat/ : SA 真人百家怎麼看，路單清楚、多語系與入門友善重點
 - /db-baccarat/ : DB 真人百家怎麼看，畫面整潔、鏡位觀感與資訊密度比較
-- /mt-baccarat/ : MT 真人百家怎麼看，桌型切換、介面節奏與新手觀察重點
 - /mt-vs-dg-baccarat/ : MT 真人百家 vs DG 真人百家，沉浸式體驗與快節奏怎麼選
-- /mt-live-dealer/ : MT 真人百家樂台灣荷官，中文陪聊的沉浸式體驗怎麼看
-- /mt-baccarat-guide/ : MT 百家樂玩法懶人包，新手第一次進 MT 真人怎麼玩
+- /mt-baccarat-guide/ : MT 百家樂完整指南，MT 真人怎麼玩、介面怎麼看、台灣荷官陪聊
 - /mt-baccarat-ptt/ : MT 真人百家樂評價，PTT、Dcard 上大家在意什麼
 - /wg-baccarat/ : WG 真人百家怎麼看，畫面節奏、手機下注與桌面閱讀重點
 - /be-baccarat/ : BE 真人百家怎麼看，桌面閱讀、節奏感與入桌判斷重點
